@@ -170,7 +170,7 @@ function Header({ onOpenReservation }) {
   )
 }
 
-// public 폴더 자산은 배포 base(/CnA/)를 붙여야 함 (루트 절대경로면 base가 빠짐)
+// public 폴더 자산은 배포 base(/djnsc-edu/)를 붙여야 함 (루트 절대경로면 base가 빠짐)
 const pub = (p) => import.meta.env.BASE_URL + p.replace(/^\//, '')
 const ICON_BASE = import.meta.env.BASE_URL + 'fq/'
 
@@ -1435,6 +1435,62 @@ function SectionFAQ({ onOpenReservation }) {
   )
 }
 
+// ── 공지 팝업 (이미지 1장 + 닫기 / 오늘 하루 보지 않기) ──
+// 이미지 교체: public/images/popup/notice.png 파일만 바꾸면 됩니다.
+function NoticePopup() {
+  const [open, setOpen] = useState(false)
+
+  useEffect(() => {
+    try {
+      const until = localStorage.getItem('dcs-notice-hide-until')
+      if (until && Date.now() < Number(until)) return
+    } catch { /* localStorage 불가 시 무시 */ }
+    setOpen(true)
+  }, [])
+
+  useEffect(() => {
+    if (!open) return
+    const onKey = (e) => { if (e.key === 'Escape') setOpen(false) }
+    const prev = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    window.addEventListener('keydown', onKey)
+    return () => {
+      document.body.style.overflow = prev
+      window.removeEventListener('keydown', onKey)
+    }
+  }, [open])
+
+  if (!open) return null
+
+  const hideToday = () => {
+    try {
+      const now = new Date()
+      const end = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1).getTime()
+      localStorage.setItem('dcs-notice-hide-until', String(end))
+    } catch { /* 무시 */ }
+    setOpen(false)
+  }
+
+  return (
+    <div className="notice-modal" role="dialog" aria-modal="true" aria-label="공지 팝업">
+      <button type="button" className="notice-backdrop" aria-label="팝업 닫기" onClick={() => setOpen(false)} />
+      <div className="notice-panel">
+        <button type="button" className="notice-close" aria-label="팝업 닫기" onClick={() => setOpen(false)}>
+          <span aria-hidden="true" />
+          <span aria-hidden="true" />
+        </button>
+        <div className="notice-img-bx">
+          <img src={pub('/images/popup/notice.png')} alt="공지" />
+        </div>
+        <div className="notice-bar">
+          <button type="button" className="notice-today" onClick={hideToday}>오늘 하루 보지 않기</button>
+          <button type="button" className="notice-dismiss" onClick={() => setOpen(false)}>닫기</button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export default function App() {
   const [reservationOpen, setReservationOpen] = useState(false)
 
@@ -1482,6 +1538,7 @@ export default function App() {
       </div>
       <FloatingMenu />
       <ReservationModal open={reservationOpen} onClose={() => setReservationOpen(false)} />
+      <NoticePopup />
     </>
   )
 }
