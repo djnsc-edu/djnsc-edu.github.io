@@ -847,6 +847,20 @@
   gap: 120px;
   align-items: start;
   margin-bottom: 0;
+  animation: s4RowFade 0.8s ease both;
+}
+/* 탭 전환 시 부드러운 등장(리마운트마다 재생) — 오른쪽 콘텐츠는 순차 등장 */
+@keyframes s4RowFade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes s4FadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+.s4-row .s4-left { animation: s4RowFade 0.85s ease both; }
+.s4-row .s4-right > * { animation: s4FadeUp 0.85s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.s4-row .s4-right > *:nth-child(1) { animation-delay: 0.06s; }
+.s4-row .s4-right > *:nth-child(2) { animation-delay: 0.14s; }
+.s4-row .s4-right > *:nth-child(3) { animation-delay: 0.22s; }
+.s4-row .s4-right > *:nth-child(4) { animation-delay: 0.30s; }
+.s4-row .s4-right > *:nth-child(5) { animation-delay: 0.38s; }
+@media (prefers-reduced-motion: reduce) {
+  .s4-row, .s4-row .s4-left, .s4-row .s4-right > * { animation: none; }
 }
 /* 메인 프로필: 텍스트 스크롤 동안 고정(sticky) */
 .s4-left { position: sticky; top: 120px; align-self: start; }
