@@ -317,27 +317,25 @@ const S4_TEACHERS = [
       '그래서 저는 정답을 빠르게 알려주지 않습니다.',
       '스스로 해결의 실마리를 찾도록 돕습니다.',
     ],
-    edu: ['KAIST 전기및전자공학 박사'],
+    edu: ['카이스트 전기전자공학과 박사', '수학·물리·소프트웨어 교육 전문가', '영재고·대학 입시 전문가'],
     career: [
-      '초·중·고·대학생 수학 지도 경력 12년',
       'KMO · KJMO 등 수학 경시·올림피아드 대비 지도',
-      '일본유학 입시학원 수학 지도 경력',
-      '대치동 수리논술 지도 경험',
+      '국제 유학 입시학원 수학 지도 경력',
+      '대치동 수리논술 지도',
       '내신·수능 및 심화 수학 지도',
-      '수준별 맞춤 커리큘럼 및 오답 관리',
       '자체 수학 교재 연구·제작',
     ],
   },
   {
-    photo: null,
+    photo: '/images/s4/bonsu-t.webp',
     role: 'Mathematics',
     name: '구본수',
     subject: '수학 · 수리논술',
     position: 'Lead Teacher',
     title: '수리논술 전문 강사',
     desc: [
-      'KAIST 수리과학과 석사,',
-      '시대인재 수리논술 지도 경험',
+      'KAIST 수리과학과,',
+      '대치동 수리논술 지도',
     ],
     quote: [
       '수학은 답이 아니라 과정으로 증명하는 과목입니다.',
@@ -347,9 +345,9 @@ const S4_TEACHERS = [
       '그래서 저는 한 문제도 대충 넘기지 않습니다.',
       '학생이 스스로 납득할 때까지 함께 고민합니다.',
     ],
-    edu: ['KAIST 수리과학과 석사'],
+    edu: ['KAIST 수리과학과'],
     career: [
-      '시대인재 수리논술 지도 경험',
+      '대치동 수리논술 지도',
       '주요 대학 수리논술 대비 지도',
       '중·고 수학 심화·개념 지도',
       '자체 수학 교재 연구·제작',
@@ -370,7 +368,7 @@ function Section4() {
       <div className="s4-container">
         <div className="s4-head">
           <p className="s4-cate"><CharReveal text="TEACHERS" /></p>
-          <h2 className="s4-tit"><CharReveal text="대표 강사진" /></h2>
+          <h2 className="s4-tit"><CharReveal text="KAIST 원장진의 이공계 영재·입시 전문교육" /></h2>
         </div>
 
         <div className="s4-tabs" role="tablist">
@@ -383,7 +381,7 @@ function Section4() {
               className={`s4-tab${active === i ? ' is-active' : ''}`}
               onClick={() => setActive(i)}
             >
-              {tt.subject} · {tt.name}
+              {tt.name} 원장
             </button>
           ))}
         </div>
@@ -438,8 +436,8 @@ const S5DATA = {
   i1: { img: classImg('class-05'), tit: '영재·심화수학', desc: '초등부터 시작하는 깊이 있는 수학적 사고로\n영재·심화 과정을 지도합니다.' },
   i2: { img: classImg('class-09'), tit: '수학경시', desc: 'HME·KMC 등 전국 수학경시를\n기초부터 실전까지 단계별로 대비합니다.' },
   i3: { img: classImg('class-06'), tit: '정보올림피아드', desc: '알고리즘적 사고를 바탕으로\n정보올림피아드를 체계적으로 준비합니다.' },
-  i4: { img: classImg('class-07'), tit: '영재고·과학고 입시', desc: '최상위 수학 역량을 입시 경쟁력으로\n영재고·과학고 입시를 대비합니다.' },
-  i5: { img: classImg('class-08'), tit: '대입수학·수리논술', desc: '고등 최상위 수학부터\n대입 수리논술까지 지도합니다.' },
+  i4: { img: classImg('class-07'), tit: '영재고·과학고 입시', desc: '최상위 수학과 과학(물리 등) 심화로\n영재고·과학고 입시를 대비합니다.' },
+  i5: { img: classImg('class-08'), tit: '대입수학·수리논술', desc: '고등 최상위 수학과 대입 수리논술,\n국제학교 수학 입시까지 지도합니다.' },
 }
 
 function S5Text({ tit, desc, layout }) {
@@ -1359,7 +1357,7 @@ function Section2() {
                 <p className="s3-count-desc">한 명 한 명 밀착 관리합니다.</p>
               </li>
               <li>
-                <p className="s3-point-title">개별 첨삭 · 질문 무제한</p>
+                <p className="s3-point-title">개별 첨삭</p>
                 <p className="s3-count-desc">막힐 때 언제든 함께합니다.</p>
               </li>
             </ul>
