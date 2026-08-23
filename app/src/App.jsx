@@ -176,7 +176,7 @@ const ICON_BASE = import.meta.env.BASE_URL + 'fq/'
 
 // 상담 예약 폼 전송(Web3Forms) — https://web3forms.com 에서 rnrudgh@gmail.com 로 발급받은 키로 교체
 // (이 키는 클라이언트에 노출돼도 안전: 지정 이메일로만 발송되며 스팸 보호 내장)
-const WEB3FORMS_ACCESS_KEY = 'YOUR_ACCESS_KEY_HERE'
+const WEB3FORMS_ACCESS_KEY = '95047e57-d2cf-4bd4-bacc-9278ae0c4880'
 
 function FloatingMenu() {
   const [snsOpen, setSnsOpen] = useState(false)
