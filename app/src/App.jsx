@@ -334,8 +334,8 @@ const S4_TEACHERS = [
     position: 'Lead Teacher',
     title: '수리논술 전문가',
     desc: [
-      '개념을 논리로 촘촘히 연결하고,',
-      '글로 풀어내는 힘을 기르는 수업',
+      '생각을 정리하여 설명하고,',
+      '논리로 답안을 완성하는 수업',
     ],
     quote: [
       '수학은 답이 아니라 과정으로 증명하는 과목입니다.',
@@ -435,7 +435,7 @@ const S5DATA = {
   i1: { img: classImg('class-05'), tit: '영재·심화수학', desc: '초등부터 시작하는 깊이 있는 수학적 사고로\n영재·심화 과정을 지도합니다.' },
   i2: { img: classImg('class-09'), tit: '수학경시', desc: 'HME·KMC 등 전국 수학경시를\n기초부터 실전까지 단계별로 대비합니다.' },
   i3: { img: classImg('class-06'), tit: '정보올림피아드', desc: '알고리즘적 사고를 바탕으로\n정보올림피아드를 체계적으로 준비합니다.' },
-  i4: { img: classImg('class-07'), tit: '영재고·과학고 입시', desc: '최상위 수학과 과학(물리 등) 심화로\n영재고·과학고 입시를 대비합니다.' },
+  i4: { img: classImg('class-07'), tit: '영재고·과학고 입시', desc: '최상위 수학과 과학 심화로\n영재고·과학고 입시를 대비합니다.' },
   i5: { img: classImg('class-08'), tit: '대입수학·수리논술', desc: '고등 최상위 수학과 대입 수리논술,\n국제학교 수학 입시까지 지도합니다.' },
 }
 
@@ -954,9 +954,9 @@ function Footer() {
             <div className="footer-info">
               <p className="footer-name">도전과성취학원</p>
               <div className="footer-row">
-                <div className="footer-item"><span className="footer-tit">대표원장</span><span className="footer-txt">-</span></div>
+                <div className="footer-item"><span className="footer-tit">대표원장</span><span className="footer-txt">구민영</span></div>
                 <span className="footer-bar" aria-hidden="true" />
-                <div className="footer-item"><span className="footer-tit">연락처</span><span className="footer-txt">-</span></div>
+                <div className="footer-item"><span className="footer-tit">연락처</span><span className="footer-txt">010-4667-9947</span></div>
                 <span className="footer-bar" aria-hidden="true" />
                 <div className="footer-item"><span className="footer-tit">사업자등록번호</span><span className="footer-txt">-</span></div>
               </div>
