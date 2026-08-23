@@ -170,7 +170,7 @@ function Header({ onOpenReservation }) {
   )
 }
 
-// public 폴더 자산은 배포 base(/djnsc-edu/)를 붙여야 함 (루트 절대경로면 base가 빠짐)
+// public 폴더 자산은 배포 base(/)를 붙여야 함 (루트 절대경로면 base가 빠짐)
 const pub = (p) => import.meta.env.BASE_URL + p.replace(/^\//, '')
 const ICON_BASE = import.meta.env.BASE_URL + 'fq/'
 
@@ -1149,13 +1149,6 @@ function MergedHero() {
     const root = rootRef.current
     if (!root) return
 
-    // 새로고침 시 브라우저의 스크롤 위치 복원을 끄고 항상 최상단에서 시작.
-    // (핀+scrub 히어로가 중간 위치에서 로드되면 인트로/스크롤 힌트가
-    //  이미 지나간 상태로 계산돼 표시가 들쭉날쭉해지는 문제 방지)
-    const prevRestoration = 'scrollRestoration' in window.history ? window.history.scrollRestoration : null
-    if (prevRestoration !== null) window.history.scrollRestoration = 'manual'
-    window.scrollTo(0, 0)
-
     const $ = (sel) => Array.from(root.querySelectorAll(sel))
     const one = (sel) => root.querySelector(sel)
 
@@ -1164,9 +1157,6 @@ function MergedHero() {
     const titChars = $('.mh-tit .char')
     const descChars = $('.mh-desc .char')
     const scrollHint = one('.mh-scroll')
-    const slides = $('.mh-slide')   // [intro, p1, p2, p3, p4]
-    const bgs = $('.mh-bg')         // [video]
-    const pin = one('.mh-pin')
 
     // ── 모바일 배경 영상 자동재생 보강 ──
     // muted+playsInline이면 대부분 자동재생되지만, iOS 저전력 모드 등에서 막힐 수 있어
@@ -1186,16 +1176,13 @@ function MergedHero() {
       window.addEventListener('scroll', onFirstInteract, { passive: true })
     }
 
+    // ── 배경 영상 표시 ──
+    gsap.set(one('.mh-bg'), { opacity: 1 })
+
     // ── 초기 상태 ──
     gsap.set(mark, { opacity: 0 })
     gsap.set(line, { scaleX: 0, transformOrigin: 'left center' })
     gsap.set(scrollHint, { opacity: 0 })
-    // 인트로 슬라이드는 보이게(글자는 from으로 개별 제어), 나머지는 아래에서 대기
-    slides.forEach((s, i) =>
-      gsap.set(s, i === 0 ? { y: 0, opacity: 1 } : { y: 150, opacity: 0 })
-    )
-    // 배경: 첫 영상만 표시
-    bgs.forEach((b, i) => gsap.set(b, { opacity: i === 0 ? 1 : 0 }))
 
     // ── 인트로 (로드 시 1회) ──
     // 컨테이너를 먼저 보이게 → from()의 immediateRender가 각 글자를 opacity:0으로 고정
@@ -1207,46 +1194,11 @@ function MergedHero() {
       .from(descChars, { opacity: 0, x: 28, duration: 0.64, ease: 'power3.out', stagger: 0.026 }, '-=0.35')
       .to(scrollHint, { opacity: 1, duration: 0.6, ease: 'power2.out' }, '-=0.2')
 
-    // ── 스크롤 핀 시퀀스 ──
-    const tl = gsap.timeline({
-      defaults: { ease: 'none' },
-      scrollTrigger: {
-        trigger: pin,
-        start: 'top top',
-        end: '+=2300',
-        scrub: 0.8,
-        pin: true,
-        anticipatePin: 1,
-      },
-    })
-
-    // 스크롤 힌트: 시작과 함께 사라짐
-    tl.to(scrollHint, { opacity: 0, duration: 3 }, 0)
-
-    // 인트로 헤드라인 → 위로 완전히 퇴장 (로고 포함)
-    tl.to(slides[0], { y: -150, opacity: 0, duration: 8 }, 3) // 3→11
-
-    // 문구 1: 인트로가 완전히 사라진 뒤 등장 → 유지 → 퇴장
-    tl.to(slides[1], { y: 0, opacity: 1, duration: 8 }, 12)     // 12→20
-      .to(slides[1], { y: -150, opacity: 0, duration: 8 }, 27)  // 27→35
-
-    // 문구 2: 문구1이 완전히 사라진 뒤 등장 → 유지 → 퇴장
-    tl.to(slides[2], { y: 0, opacity: 1, duration: 8 }, 37)     // 37→45
-      .to(slides[2], { y: -150, opacity: 0, duration: 8 }, 52)  // 52→60
-
-    // 배경 전환 없이 배경 영상만 유지 (bg2 크로스페이드 제거)
-
-    // 마지막 문구 퇴장 후 잠깐 유지한 뒤 핀 해제
-    tl.to({}, { duration: 2 }, 62)
-
     return () => {
       intro.kill()
-      tl.scrollTrigger?.kill()
-      tl.kill()
       window.removeEventListener('touchstart', onFirstInteract)
       window.removeEventListener('click', onFirstInteract)
       window.removeEventListener('scroll', onFirstInteract)
-      if (prevRestoration !== null) window.history.scrollRestoration = prevRestoration
     }
   }, [])
 
@@ -1269,7 +1221,7 @@ function MergedHero() {
 
         {/* 텍스트 스테이지 */}
         <div className="mh-stage">
-          {/* 인트로 (로고 포함 — 헤드라인과 함께 자연스럽게 퇴장) */}
+          {/* 인트로 (로고 + Today Challenge) */}
           <div className="mh-slide mh-intro">
             <img
               className="mh-mark"
@@ -1284,17 +1236,6 @@ function MergedHero() {
               <SplitChars text={'오늘의 도전이, 내일을 이끌어갑니다.\n스스로 도전하고 성취하는 교육, 도전과성취.'} />
             </p>
           </div>
-
-          {/* 문구 1 */}
-          <div className="mh-slide">
-            <p className="mh-lead">학생의 다음 도전을 설계하는<br />최상위 수학 전문교육</p>
-          </div>
-
-          {/* 문구 2 */}
-          <div className="mh-slide">
-            <p className="mh-lead">학생의 가능성을<br />끝까지 끌어올립니다</p>
-          </div>
-
         </div>
 
         {/* 스크롤 힌트 */}
