@@ -438,7 +438,7 @@ em { font-style: normal; }
   outline: none; border-color: var(--gold);
   box-shadow: 0 0 0 3px rgba(198, 163, 111, 0.28);
 }
-.reserve-form .btn-block { margin-top: 4px; }
+.reserve-form .btn-block { margin-top: 6px; padding: 14px 22px; font-size: 15px; }
 .reserve-form .btn[disabled] { opacity: 0.6; cursor: default; transform: none; }
 .rf-note { min-height: 20px; font-size: 14px; font-weight: 600; text-align: center; }
 .rf-note.ok { color: var(--gold-soft); }
