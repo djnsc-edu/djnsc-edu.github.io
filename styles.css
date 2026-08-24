@@ -417,22 +417,26 @@ em { font-style: normal; }
 .reserve-form input,
 .reserve-form select,
 .reserve-form textarea {
-  width: 100%; font-family: inherit; font-size: 15px; color: var(--ivory);
-  background: rgba(8, 17, 32, 0.4);
-  border: 1px solid var(--line-light); border-radius: 10px;
+  width: 100%; font-family: inherit; font-size: 15px; color: var(--ink);
+  background: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.16); border-radius: 10px;
   padding: 12px 14px;
-  transition: border-color 0.25s, background 0.25s;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 .reserve-form textarea { resize: vertical; min-height: 82px; line-height: 1.6; }
 .reserve-form input::placeholder,
-.reserve-form textarea::placeholder { color: rgba(247, 245, 239, 0.42); }
-.reserve-form select { appearance: none; -webkit-appearance: none; cursor: pointer; }
-.reserve-form select:invalid { color: rgba(247, 245, 239, 0.42); }
-.reserve-form select option { color: #15223c; }
+.reserve-form textarea::placeholder { color: #9098a8; }
+.reserve-form select {
+  appearance: none; -webkit-appearance: none; cursor: pointer; padding-right: 40px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%234a5772' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+  background-repeat: no-repeat; background-position: right 14px center;
+}
+.reserve-form select option { color: var(--ink); background: #ffffff; }
 .reserve-form input:focus,
 .reserve-form select:focus,
 .reserve-form textarea:focus {
-  outline: none; border-color: var(--gold); background: rgba(8, 17, 32, 0.62);
+  outline: none; border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(198, 163, 111, 0.28);
 }
 .reserve-form .btn-block { margin-top: 4px; }
 .reserve-form .btn[disabled] { opacity: 0.6; cursor: default; transform: none; }
