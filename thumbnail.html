@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="https://fastly.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { background:#050b16; }
+  .thumb {
+    width:1200px; height:630px; position:relative; overflow:hidden;
+    background: linear-gradient(150deg, #050b16 0%, #0d1a30 52%, #16294f 100%);
+    font-family:"Pretendard",sans-serif; color:#f5f4f1;
+    padding:70px 84px; display:flex; flex-direction:column; justify-content:space-between;
+  }
+  .thumb::before {
+    content:""; position:absolute; inset:0;
+    background:
+      radial-gradient(48% 55% at 88% 12%, rgba(198,163,111,0.22), transparent 70%),
+      radial-gradient(46% 60% at 6% 96%, rgba(44,78,134,0.5), transparent 72%);
+  }
+  .thumb::after {
+    content:""; position:absolute; right:-120px; bottom:-160px; width:520px; height:520px;
+    border:1px solid rgba(198,163,111,0.18); border-radius:50%;
+    box-shadow:0 0 0 60px rgba(198,163,111,0.05);
+  }
+  .row { position:relative; z-index:2; }
+  .brand { display:flex; align-items:center; gap:18px; }
+  .brand img { width:60px; height:60px; object-fit:contain; }
+  .brand .kr { font-size:30px; font-weight:800; letter-spacing:-0.01em; line-height:1; }
+  .brand .en { font-size:12px; letter-spacing:0.32em; color:#c6a36f; font-weight:600; margin-top:6px; }
+  .brand .txt { display:flex; flex-direction:column; }
+
+  .eyebrow { font-size:18px; letter-spacing:0.34em; font-weight:600; color:#dcc298; margin-bottom:22px; }
+  .title { font-size:82px; line-height:1.08; font-weight:800; letter-spacing:-0.03em; }
+  .title em { font-style:normal; background:linear-gradient(120deg,#dcc298,#c6a36f); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .sub { font-size:26px; font-weight:500; color:rgba(245,244,241,0.82); margin-top:26px; }
+
+  .badges { display:flex; align-items:center; gap:20px; font-size:20px; font-weight:600; color:rgba(245,244,241,0.9); }
+  .badges .dot { width:6px; height:6px; border-radius:50%; background:#c6a36f; }
+</style>
+</head>
+<body>
+  <div class="thumb">
+    <div class="row brand">
+      <img src="images/logo_s-w.png" alt="" />
+      <div class="txt">
+        <span class="kr">도전과성취</span>
+        <span class="en">CHALLENGE &amp; ACHIEVEMENT</span>
+      </div>
+    </div>
+
+    <div class="row">
+      <p class="eyebrow">MATH · SCIENCE · COMPUTER SCIENCE</p>
+      <h1 class="title">Challenge Today.<br /><em>Achieve Tomorrow.</em></h1>
+      <p class="sub">KAIST 원장진의 이공계 영재·입시 전문교육</p>
+    </div>
+
+    <div class="row badges">
+      <span>영재고·과학고</span><span class="dot"></span>
+      <span>정보올림피아드</span><span class="dot"></span>
+      <span>대입·수리논술</span>
+    </div>
+  </div>
+</body>
+</html>
