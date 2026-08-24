@@ -60,6 +60,43 @@ if (window.AOS) {
   AOS.init({ duration: 750, easing: 'ease-out-cubic', once: true, offset: 90, anchorPlacement: 'top-bottom' });
 }
 
+// ===== Reservation modal (popup) =====
+const reserveModal = document.getElementById('reserveModal');
+if (reserveModal) {
+  let lastFocused = null;
+  const openReserve = () => {
+    lastFocused = document.activeElement;
+    if (typeof mobileMenu !== 'undefined' && mobileMenu.classList.contains('open')) toggleMenu(false);
+    reserveModal.classList.add('open');
+    reserveModal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    const first = reserveModal.querySelector('input:not([type="checkbox"]), select, textarea');
+    if (first) setTimeout(() => first.focus(), 60);
+  };
+  const closeReserve = () => {
+    reserveModal.classList.remove('open');
+    reserveModal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    if (lastFocused && lastFocused.focus) lastFocused.focus();
+  };
+
+  document.querySelectorAll('[data-reserve-open]').forEach((el) => {
+    el.addEventListener('click', (e) => { e.preventDefault(); openReserve(); });
+  });
+  reserveModal.querySelectorAll('[data-reserve-close]').forEach((el) => {
+    el.addEventListener('click', closeReserve);
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && reserveModal.classList.contains('open')) closeReserve();
+  });
+
+  // Open automatically when arriving from another page with #reserve
+  if (location.hash === '#reserve') openReserve();
+  window.addEventListener('hashchange', () => { if (location.hash === '#reserve') openReserve(); });
+
+  window.openReserve = openReserve;
+}
+
 // ===== Reservation form (Web3Forms → 연결된 이메일로 전송) =====
 const RESERVE_ACCESS_KEY = '95047e57-d2cf-4bd4-bacc-9278ae0c4880';
 const reserveForm = document.getElementById('reserveForm');
@@ -126,6 +163,7 @@ if (window.Lenis) {
 // Smooth in-page anchor navigation
 document.querySelectorAll('a[href^="#"]').forEach((a) => {
   a.addEventListener('click', (e) => {
+    if (a.hasAttribute('data-reserve-open')) return; // handled by reservation modal
     const id = a.getAttribute('href');
     if (id.length > 1) {
       const target = document.querySelector(id);

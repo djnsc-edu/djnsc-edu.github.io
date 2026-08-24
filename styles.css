@@ -388,14 +388,11 @@ em { font-style: normal; }
 /* ===================== ADMISSION (CTA banner) ===================== */
 .admission { background: linear-gradient(155deg, var(--navy-900), var(--navy-700)); color: var(--ivory); }
 .admission-inner {
-  display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 3.6vw, 48px); align-items: center;
+  display: flex; justify-content: center; text-align: center;
 }
-.admission-text { max-width: none; }
-.admission-desc { font-size: clamp(14px, 2vw, 16px); line-height: 1.75; color: var(--ivory); margin-top: 22px; }
-.admission-actions {
-  display: flex; flex-direction: row; align-items: center; gap: clamp(20px, 3vw, 36px);
-  justify-self: end; flex-wrap: wrap;
-}
+.admission-text { max-width: 760px; }
+.admission-desc { font-size: clamp(15px, 2vw, 17px); line-height: 1.75; color: var(--ivory); margin-top: 22px; }
+.admission-text .btn-lg { margin-top: clamp(26px, 3.4vw, 34px); }
 .btn-lg { padding: clamp(15px, 2vw, 18px) clamp(28px, 3.6vw, 40px); font-size: clamp(15px, 2vw, 17px); }
 .admission-call { display: flex; flex-direction: column; gap: 6px; }
 .admission .section-title { word-break: keep-all; }
@@ -442,6 +439,42 @@ em { font-style: normal; }
 .rf-note { min-height: 20px; font-size: 14px; font-weight: 600; text-align: center; }
 .rf-note.ok { color: var(--gold-soft); }
 .rf-note.error { color: #ff9b8a; }
+
+/* ===================== RESERVATION MODAL ===================== */
+.reserve-modal { position: fixed; inset: 0; z-index: 200; display: none; }
+.reserve-modal.open { display: flex; align-items: center; justify-content: center; padding: 20px; }
+.reserve-backdrop {
+  position: fixed; inset: 0; background: rgba(6, 12, 24, 0.74);
+  backdrop-filter: blur(4px); animation: reserveFade 0.3s ease;
+}
+.reserve-dialog {
+  position: relative; z-index: 1; width: 100%; max-width: 560px; max-height: 90vh;
+  overflow-y: auto; -webkit-overflow-scrolling: touch;
+  background: linear-gradient(158deg, var(--navy-900), var(--navy-800));
+  border: 1px solid var(--line-light); border-radius: var(--radius);
+  padding: clamp(26px, 4vw, 40px);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+  animation: reservePop 0.34s var(--ease);
+}
+.reserve-close {
+  position: absolute; top: 14px; right: 14px;
+  width: 40px; height: 40px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(255, 255, 255, 0.06); border: 1px solid var(--line-light);
+  color: var(--ivory); cursor: pointer; transition: background 0.25s, border-color 0.25s;
+}
+.reserve-close:hover { background: rgba(255, 255, 255, 0.12); border-color: var(--gold); }
+.reserve-close svg { width: 18px; height: 18px; }
+.reserve-head { margin-bottom: clamp(18px, 2.6vw, 24px); padding-right: 40px; }
+.reserve-title { font-size: clamp(24px, 3.4vw, 30px); font-weight: 800; color: var(--ivory); letter-spacing: -0.02em; margin-top: 4px; }
+.reserve-desc { margin-top: 10px; font-size: clamp(14px, 2vw, 15px); line-height: 1.6; color: rgba(247, 245, 239, 0.72); }
+/* form sits directly inside the dialog — drop its own card chrome */
+.reserve-modal .reserve-form { background: transparent; border: none; padding: 0; }
+@keyframes reservePop { from { opacity: 0; transform: translateY(18px) scale(0.98); } to { opacity: 1; transform: none; } }
+@keyframes reserveFade { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .reserve-dialog, .reserve-backdrop { animation: none; }
+}
 
 /* ===================== ENVIRONMENT ===================== */
 .environment { background: var(--ivory); }
