@@ -38,14 +38,22 @@ if (window.AOS) {
     });
   });
   // simple fade-up (no stagger)
+  // NOTE: `.section-lead` is intentionally omitted — it always lives inside
+  // `.section-head`, so it fades in together with its parent as one block.
+  // Giving it its own AOS caused a nested double-animation (e.g. the
+  // "학원 둘러보기" link appearing out of sync in LEARNING ENVIRONMENT).
   const simple = [
-    '.section-head', '.section-lead', '.road-copy', '.admission-form',
+    '.section-head', '.road-copy', '.admission-form',
     '.detail-feature', '.detail-quote .container', '.cta-band .container',
     '.page-eyebrow', '.page-title', '.page-lead', '.global-list li',
   ];
   simple.forEach((sel) => {
     document.querySelectorAll(sel).forEach((el) => {
-      if (!el.hasAttribute('data-aos')) el.setAttribute('data-aos', 'fade-up');
+      // skip elements nested inside an already-animated ancestor to avoid
+      // parent/child double-animations that fall out of sync
+      if (!el.hasAttribute('data-aos') && !el.closest('[data-aos]')) {
+        el.setAttribute('data-aos', 'fade-up');
+      }
     });
   });
 
