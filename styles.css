@@ -440,7 +440,8 @@ em { font-style: normal; }
 }
 .reserve-form .btn-block { margin-top: 6px; padding: 14px 22px; font-size: 15px; }
 .reserve-form .btn[disabled] { opacity: 0.6; cursor: default; transform: none; }
-.rf-note { min-height: 20px; font-size: 14px; font-weight: 600; text-align: center; }
+.rf-note { font-size: 14px; font-weight: 600; text-align: center; }
+.rf-note:empty { display: none; }
 .rf-note.ok { color: var(--gold-soft); }
 .rf-note.error { color: #ff9b8a; }
 
@@ -456,7 +457,7 @@ em { font-style: normal; }
   overflow-y: auto; -webkit-overflow-scrolling: touch;
   background: linear-gradient(158deg, var(--navy-900), var(--navy-800));
   border: 1px solid var(--line-light); border-radius: var(--radius);
-  padding: clamp(26px, 4vw, 40px);
+  padding: clamp(24px, 3.2vw, 32px);
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
   animation: reservePop 0.34s var(--ease);
 }
