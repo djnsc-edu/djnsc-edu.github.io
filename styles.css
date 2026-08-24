@@ -388,7 +388,7 @@ em { font-style: normal; }
 /* ===================== ADMISSION (CTA banner) ===================== */
 .admission { background: linear-gradient(155deg, var(--navy-900), var(--navy-700)); color: var(--ivory); }
 .admission-inner {
-  display: grid; grid-template-columns: 1.3fr 1fr; gap: clamp(28px, 3.6vw, 48px); align-items: center;
+  display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 3.6vw, 48px); align-items: center;
 }
 .admission-text { max-width: none; }
 .admission-desc { font-size: clamp(14px, 2vw, 16px); line-height: 1.75; color: var(--ivory); margin-top: 22px; }
@@ -401,6 +401,47 @@ em { font-style: normal; }
 .admission .section-title { word-break: keep-all; }
 .admission-call-label { font-size: clamp(14px, 2vw, 16px); letter-spacing: 0.14em; font-weight: 600; color: var(--gold-soft); text-transform: uppercase; }
 .admission-call-num { font-size: clamp(26px, 3vw, 34px); font-weight: 800; color: var(--gold-soft); letter-spacing: 0.01em; }
+
+/* ===================== RESERVATION FORM ===================== */
+.reserve-form {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--line-light);
+  border-radius: var(--radius);
+  padding: clamp(20px, 2.6vw, 30px);
+  display: flex; flex-direction: column; gap: 14px;
+}
+.rf-hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.rf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.rf-field { display: flex; flex-direction: column; gap: 7px; }
+.rf-label { font-size: 13px; font-weight: 600; letter-spacing: 0.02em; color: var(--gold-soft); }
+.rf-label em { color: var(--gold); font-style: normal; }
+.rf-opt { color: rgba(247, 245, 239, 0.5); font-weight: 500; }
+.reserve-form input,
+.reserve-form select,
+.reserve-form textarea {
+  width: 100%; font-family: inherit; font-size: 15px; color: var(--ivory);
+  background: rgba(8, 17, 32, 0.4);
+  border: 1px solid var(--line-light); border-radius: 10px;
+  padding: 12px 14px;
+  transition: border-color 0.25s, background 0.25s;
+}
+.reserve-form textarea { resize: vertical; min-height: 82px; line-height: 1.6; }
+.reserve-form input::placeholder,
+.reserve-form textarea::placeholder { color: rgba(247, 245, 239, 0.42); }
+.reserve-form select { appearance: none; -webkit-appearance: none; cursor: pointer; }
+.reserve-form select:invalid { color: rgba(247, 245, 239, 0.42); }
+.reserve-form select option { color: #15223c; }
+.reserve-form input:focus,
+.reserve-form select:focus,
+.reserve-form textarea:focus {
+  outline: none; border-color: var(--gold); background: rgba(8, 17, 32, 0.62);
+}
+.reserve-form .btn-block { margin-top: 4px; }
+.reserve-form .btn[disabled] { opacity: 0.6; cursor: default; transform: none; }
+.rf-note { min-height: 20px; font-size: 14px; font-weight: 600; text-align: center; }
+.rf-note.ok { color: var(--gold-soft); }
+.rf-note.error { color: #ff9b8a; }
 
 /* ===================== ENVIRONMENT ===================== */
 .environment { background: var(--ivory); }
@@ -703,6 +744,11 @@ em { font-style: normal; }
   .detail-quote { padding: 64px 0; }
   .cta-band { padding: 64px 0; }
   .cta-band .btn { display: block; max-width: 320px; margin: 10px auto 0; }
+}
+
+/* Reservation form: stack paired fields on narrow screens */
+@media (max-width: 520px) {
+  .rf-row { grid-template-columns: 1fr; }
 }
 
 /* Very small phones (≤380px) — fluid tokens cover most sizing; only layout tweaks remain */

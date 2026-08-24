@@ -60,20 +60,50 @@ if (window.AOS) {
   AOS.init({ duration: 750, easing: 'ease-out-cubic', once: true, offset: 90, anchorPlacement: 'top-bottom' });
 }
 
-// ===== Admission form (demo — no backend yet) =====
-const form = document.getElementById('admissionForm');
-const note = document.getElementById('formNote');
-if (form) form.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const name = form.name.value.trim();
-  const phone = form.phone.value.trim();
-  if (!name || !phone) {
-    note.textContent = '이름과 연락처를 입력해 주세요.';
-    return;
-  }
-  note.textContent = `${name} 학생 상담 신청이 접수되었습니다. 빠르게 연락드리겠습니다.`;
-  form.reset();
-});
+// ===== Reservation form (Web3Forms → 연결된 이메일로 전송) =====
+const RESERVE_ACCESS_KEY = '95047e57-d2cf-4bd4-bacc-9278ae0c4880';
+const reserveForm = document.getElementById('reserveForm');
+if (reserveForm) {
+  const note = document.getElementById('reserveNote');
+  const submitBtn = document.getElementById('reserveSubmit');
+  const setNote = (msg, type) => { note.textContent = msg; note.className = 'rf-note' + (type ? ' ' + type : ''); };
+
+  reserveForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const els = reserveForm.elements;
+    const name = els['name'].value.trim();
+    const phone = els['phone'].value.trim();
+    if (!name || !phone) {
+      setNote('학생 이름과 연락처를 입력해 주세요.', 'error');
+      return;
+    }
+
+    const fd = new FormData(reserveForm);
+    fd.append('access_key', RESERVE_ACCESS_KEY);
+    fd.append('subject', '[도전과성취] 새 상담예약 접수');
+    fd.append('from_name', '도전과성취 홈페이지');
+
+    const label = submitBtn.textContent;
+    submitBtn.disabled = true;
+    submitBtn.textContent = '전송 중…';
+    setNote('', '');
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: fd });
+      const data = await res.json();
+      if (data.success) {
+        reserveForm.reset();
+        setNote('상담예약이 접수되었습니다. 확인 후 순차적으로 연락드리겠습니다.', 'ok');
+      } else {
+        setNote('전송에 실패했습니다. 잠시 후 다시 시도해 주세요.', 'error');
+      }
+    } catch {
+      setNote('네트워크 오류로 전송하지 못했습니다. 잠시 후 다시 시도해 주세요.', 'error');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = label;
+    }
+  });
+}
 
 // ===== Quick menu: scroll to top =====
 document.querySelectorAll('.quick-top').forEach((btn) => {
