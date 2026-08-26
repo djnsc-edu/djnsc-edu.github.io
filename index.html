@@ -351,6 +351,9 @@
 <!-- ===================== QUICK MENU ===================== -->
 <div class="quick-menu" aria-label="빠른 메뉴">
   <a href="#admission" class="quick-item" aria-label="상담예약" title="상담예약" data-reserve-open><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/><path d="m9 16 2 2 4-4"/></svg></a>
+  <a href="https://blog.naver.com/djnsc" class="quick-item quick-sns quick-naver" aria-label="네이버 블로그" title="네이버 블로그" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17V7l10 10V7"/></svg></a>
+  <a href="https://www.instagram.com/" class="quick-item quick-sns quick-insta" aria-label="인스타그램" title="인스타그램" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+  <a href="https://www.youtube.com/@djnsc-edu" class="quick-item quick-sns quick-youtube" aria-label="유튜브" title="유튜브" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="currentColor" stroke="none"/></svg></a>
   <button type="button" class="quick-item quick-top" aria-label="맨 위로" title="맨 위로"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg></button>
 </div>
 
@@ -372,7 +375,7 @@
       </div>
       <div class="footer-col">
         <h4>학원 위치</h4>
-        <p>서울특별시 서초구<br />고무래로 6-3 삼공빌딩 6층</p>
+        <p>위치 준비 중입니다.<br />확정되는 대로 안내드리겠습니다.</p>
       </div>
       <div class="footer-col">
         <h4>바로가기</h4>
@@ -410,7 +413,7 @@
       <div class="rf-row">
         <label class="rf-field">
           <span class="rf-label">학생 이름 <em>*</em></span>
-          <input type="text" name="name" autocomplete="name" placeholder="예) 홍길동" required />
+          <input type="text" name="name" autocomplete="name" placeholder="예) 김도전" required />
         </label>
         <label class="rf-field">
           <span class="rf-label">연락처 <em>*</em></span>
@@ -419,32 +422,68 @@
       </div>
       <div class="rf-row">
         <label class="rf-field">
-          <span class="rf-label">학년</span>
-          <input type="text" name="grade" placeholder="예) 중2, 초5" />
+          <span class="rf-label">나이</span>
+          <select name="age">
+            <option value="">선택해 주세요</option>
+            <option>8세</option>
+            <option>9세</option>
+            <option>10세</option>
+            <option>11세</option>
+            <option>12세</option>
+            <option>13세</option>
+            <option>14세</option>
+            <option>15세</option>
+            <option>16세</option>
+            <option>17세</option>
+            <option>18세</option>
+            <option>19세</option>
+            <option>그 외</option>
+          </select>
         </label>
         <label class="rf-field">
-          <span class="rf-label">관심 전문관</span>
-          <select name="interest">
-            <option value="">선택 안 함</option>
-            <option>영재고·과학고관</option>
-            <option>정보올림피아드관</option>
-            <option>국제학교관</option>
-            <option>대입·수리논술관</option>
-            <option>아직 모르겠어요</option>
+          <span class="rf-label">성취도 <em>*</em></span>
+          <select name="achievement" required>
+            <option value="">선택해 주세요</option>
+            <option>최상위권 (전국 단위)</option>
+            <option>상위권 (학교 상위권)</option>
+            <option>중위권</option>
+            <option>기초부터 필요해요</option>
+            <option>정확히 모르겠어요</option>
           </select>
         </label>
       </div>
       <label class="rf-field">
-        <span class="rf-label">희망 상담 시간</span>
-        <input type="text" name="preferred" placeholder="예) 평일 오후, 주말 오전" />
+        <span class="rf-label">희망 상담 시간 <em>*</em></span>
+        <input type="text" name="preferred" placeholder="예) 평일 오후, 주말 오전" required />
       </label>
       <label class="rf-field">
         <span class="rf-label">문의 내용 <span class="rf-opt">(선택)</span></span>
         <textarea name="message" rows="3" placeholder="궁금하신 점을 자유롭게 남겨주세요."></textarea>
       </label>
+      <div class="rf-consent">
+        <label class="rf-consent-main">
+          <input type="checkbox" name="privacy" id="reservePrivacy" />
+          <span class="rf-consent-text">
+            <strong>개인정보 수집·이용에 동의합니다. <em>*</em></strong>
+            수집 항목: 학생 이름, 연락처 · 이용 목적: 상담 예약 접수 및 안내 연락 · 보유 기간: 상담 완료 후 1년.
+          </span>
+        </label>
+        <a href="privacy.html" target="_blank" rel="noopener" class="rf-consent-link">개인정보처리방침 전문 보기 →</a>
+      </div>
       <button type="submit" class="btn btn-gold btn-lg btn-block" id="reserveSubmit">상담예약 신청</button>
       <p class="rf-note" id="reserveNote" role="status" aria-live="polite"></p>
     </form>
+  </div>
+</div>
+
+<!-- 상담신청 완료 알림 -->
+<div class="reserve-toast" id="reserveToast" role="status" aria-live="polite" aria-hidden="true">
+  <div class="reserve-toast-inner">
+    <span class="reserve-toast-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+    </span>
+    <p class="reserve-toast-title">상담 신청이 완료되었습니다</p>
+    <p class="reserve-toast-sub">확인 후 순차적으로 연락드리겠습니다.</p>
   </div>
 </div>
 

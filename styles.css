@@ -440,6 +440,35 @@ em { font-style: normal; }
 }
 .reserve-form .btn-block { margin-top: 6px; padding: 14px 22px; font-size: 15px; }
 .reserve-form .btn[disabled] { opacity: 0.6; cursor: default; transform: none; }
+.rf-consent {
+  padding: 14px 16px; margin-top: 4px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--line-light); border-radius: 12px;
+}
+.rf-consent-main { display: flex; align-items: flex-start; gap: 10px; cursor: pointer; }
+.rf-consent input { flex: none; width: 18px; height: 18px; margin-top: 2px; accent-color: var(--gold); cursor: pointer; }
+.rf-consent-text { font-size: 12.5px; line-height: 1.55; color: rgba(247, 245, 239, 0.62); }
+.rf-consent-text strong { display: block; margin-bottom: 3px; font-size: 14px; font-weight: 600; color: var(--ivory); }
+.rf-consent-text em { color: var(--gold); font-style: normal; }
+.rf-consent-link {
+  display: inline-block; margin: 8px 0 0 28px;
+  font-size: 12.5px; font-weight: 600; color: var(--gold-soft);
+  text-decoration: underline; text-underline-offset: 3px;
+}
+.rf-consent-link:hover { color: var(--gold); }
+
+/* ===================== 개인정보처리방침 본문 ===================== */
+.policy { max-width: 760px; margin: 0 auto; color: var(--navy-700, #33415c); }
+.policy h2 {
+  margin: 34px 0 12px; font-size: clamp(18px, 2.4vw, 21px); font-weight: 800;
+  color: var(--navy-900); letter-spacing: -0.01em;
+}
+.policy h2:first-child { margin-top: 0; }
+.policy p { margin: 0 0 12px; font-size: 15px; line-height: 1.75; color: #46506a; }
+.policy ul { margin: 0 0 12px; padding-left: 20px; }
+.policy li { margin-bottom: 6px; font-size: 15px; line-height: 1.7; color: #46506a; }
+.policy strong { color: var(--navy-900); font-weight: 700; }
+.policy-date { margin-top: 32px; padding-top: 18px; border-top: 1px solid rgba(0, 0, 0, 0.08); font-size: 14px; color: #6b7488; }
 .rf-note { font-size: 14px; font-weight: 600; text-align: center; }
 .rf-note:empty { display: none; }
 .rf-note.ok { color: var(--gold-soft); }
@@ -479,6 +508,39 @@ em { font-style: normal; }
 @keyframes reserveFade { from { opacity: 0; } to { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) {
   .reserve-dialog, .reserve-backdrop { animation: none; }
+}
+
+/* ===================== 상담신청 완료 토스트 ===================== */
+.reserve-toast {
+  position: fixed; left: 50%; top: 50%; z-index: 300;
+  transform: translate(-50%, -50%) scale(0.96); opacity: 0; pointer-events: none;
+  transition: transform 0.4s var(--ease), opacity 0.4s var(--ease);
+}
+.reserve-toast.show { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+.reserve-toast-inner {
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  gap: 8px;
+  width: min(90vw, 400px);
+  padding: 40px 36px 36px;
+  background: linear-gradient(158deg, var(--navy-900), var(--navy-800));
+  border: 1px solid var(--line-light); border-radius: 20px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+}
+.reserve-toast-icon {
+  flex: none; width: 60px; height: 60px; margin-bottom: 12px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--gold); color: var(--navy-900);
+  box-shadow: 0 0 0 8px rgba(198, 163, 111, 0.14);
+}
+.reserve-toast-icon svg { width: 30px; height: 30px; }
+.reserve-toast-title {
+  font-size: 18px; font-weight: 800; letter-spacing: -0.01em; color: var(--ivory);
+}
+.reserve-toast-sub {
+  font-size: 14px; font-weight: 500; line-height: 1.6; color: rgba(247, 245, 239, 0.7);
+}
+@media (prefers-reduced-motion: reduce) {
+  .reserve-toast { transition: opacity 0.2s linear; }
 }
 
 /* ===================== ENVIRONMENT ===================== */
@@ -541,6 +603,10 @@ em { font-style: normal; }
 }
 .quick-item:hover { transform: translateY(-3px); filter: brightness(1.07); }
 .quick-item svg { width: 19px; height: 19px; pointer-events: none; }
+.quick-item.quick-sns { color: #fff; }
+.quick-item.quick-naver { background: #03c75a; }
+.quick-item.quick-insta { background: linear-gradient(45deg, #f9ce34, #ee2a7b 55%, #6228d7); }
+.quick-item.quick-youtube { background: #ff0000; }
 
 @media (max-width: 900px) { .quick-menu { display: none; } }
 

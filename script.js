@@ -95,6 +95,7 @@ if (reserveModal) {
   window.addEventListener('hashchange', () => { if (location.hash === '#reserve') openReserve(); });
 
   window.openReserve = openReserve;
+  window.closeReserve = closeReserve;
 }
 
 // ===== Reservation form (Web3Forms → 연결된 이메일로 전송) =====
@@ -105,13 +106,82 @@ if (reserveForm) {
   const submitBtn = document.getElementById('reserveSubmit');
   const setNote = (msg, type) => { note.textContent = msg; note.className = 'rf-note' + (type ? ' ' + type : ''); };
 
+  // 학생 이름: 한글·영문·공백만 허용
+  const nameEl = reserveForm.elements['name'];
+  if (nameEl) {
+    nameEl.addEventListener('input', () => {
+      const cleaned = nameEl.value.replace(/[^ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z\s]/g, '');
+      if (cleaned !== nameEl.value) nameEl.value = cleaned;
+    });
+  }
+
+  // 연락처: 숫자만 입력받아 자동 하이픈
+  const phoneEl = reserveForm.elements['phone'];
+  const formatPhone = (v) => {
+    const d = v.replace(/\D/g, '').slice(0, 11);
+    if (/^01/.test(d)) {                                  // 휴대폰(010 등) → 3-4-4
+      if (d.length <= 3) return d;
+      if (d.length <= 7) return `${d.slice(0, 3)}-${d.slice(3)}`;
+      return `${d.slice(0, 3)}-${d.slice(3, 7)}-${d.slice(7)}`;
+    }
+    if (d.startsWith('02')) {                              // 서울 지역번호
+      if (d.length <= 2) return d;
+      if (d.length <= 6) return `${d.slice(0, 2)}-${d.slice(2)}`;
+      return `${d.slice(0, 2)}-${d.slice(2, d.length - 4)}-${d.slice(d.length - 4)}`;
+    }
+    if (d.length <= 3) return d;                           // 그 외 지역번호
+    if (d.length <= 7) return `${d.slice(0, 3)}-${d.slice(3)}`;
+    return `${d.slice(0, 3)}-${d.slice(3, d.length - 4)}-${d.slice(d.length - 4)}`;
+  };
+  const ageEl = reserveForm.elements['age'];
+  if (phoneEl) {
+    phoneEl.addEventListener('input', () => {
+      const atEnd = phoneEl.selectionStart === phoneEl.value.length;
+      phoneEl.value = formatPhone(phoneEl.value);
+      if (atEnd) phoneEl.setSelectionRange(phoneEl.value.length, phoneEl.value.length);
+      // 11자리(숫자 기준)가 채워지면 다음 입력칸으로 자동 이동
+      if (phoneEl.value.replace(/\D/g, '').length >= 11 && ageEl) ageEl.focus();
+    });
+  }
+
+  // 상담신청 완료 토스트
+  const toast = document.getElementById('reserveToast');
+  let toastTimer = null;
+  const showToast = () => {
+    if (!toast) return;
+    toast.classList.add('show');
+    toast.setAttribute('aria-hidden', 'false');
+    if (toastTimer) clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => {
+      toast.classList.remove('show');
+      toast.setAttribute('aria-hidden', 'true');
+    }, 2200);
+  };
+
   reserveForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const els = reserveForm.elements;
     const name = els['name'].value.trim();
     const phone = els['phone'].value.trim();
+    const achievement = els['achievement'].value.trim();
+    const preferred = els['preferred'].value.trim();
     if (!name || !phone) {
       setNote('학생 이름과 연락처를 입력해 주세요.', 'error');
+      return;
+    }
+    if (!achievement) {
+      setNote('성취도를 선택해 주세요.', 'error');
+      els['achievement'].focus();
+      return;
+    }
+    if (!preferred) {
+      setNote('희망 상담 시간을 입력해 주세요.', 'error');
+      els['preferred'].focus();
+      return;
+    }
+    if (!els['privacy'].checked) {
+      setNote('개인정보 수집·이용에 동의해 주세요.', 'error');
+      els['privacy'].focus();
       return;
     }
 
@@ -129,7 +199,9 @@ if (reserveForm) {
       const data = await res.json();
       if (data.success) {
         reserveForm.reset();
-        setNote('상담예약이 접수되었습니다. 확인 후 순차적으로 연락드리겠습니다.', 'ok');
+        setNote('', '');
+        if (window.closeReserve) window.closeReserve();
+        showToast();
       } else {
         setNote('전송에 실패했습니다. 잠시 후 다시 시도해 주세요.', 'error');
       }
